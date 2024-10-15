@@ -1,6 +1,6 @@
 <?php 
 // arquivo de conexão de banco
-include 'conn/connect.php';
+include '../model/connect.php';
 
 // consulta para trazer os dados se filtrar
 $id  = $_GET['id'];

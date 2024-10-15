@@ -1,5 +1,5 @@
 <?php 
-include "conn/connect.php";
+include '../model/connect.php';
 $lista_tipos = $conn->query('select * from tipos order by rotulo');
 $rows_tipos = $lista_tipos->fetch_all();
 ?>
