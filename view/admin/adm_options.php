@@ -5,7 +5,7 @@
 <!-- ADM PRODUTOS -->
 <div class="col-sm-6 col-md-4">
     <div class="thumbnail alert-danger">
-        <img src="../imagens/icone_produtos.png" alt="">
+        <img src="../../imagens/icone_produtos.png" alt="">
         <br>
         <div class="alert-danger">
 

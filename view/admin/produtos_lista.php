@@ -1,14 +1,15 @@
 <!-- CONECTAR NO BANCO E SELECIONAR AS INFORMAÇÕES -->
-
-
+<?php require '../../model/connect.php';
+    require '../../admin/Controller_produtos_lista';
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produtos - Lista</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/estilo.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/estilo.css">
 </head>
 <body class=""> 
     <?php include 'menu_adm.php'; ?>
@@ -33,30 +34,43 @@
             <tbody> <!-- início corpo da tabela -->
            	        <!-- início estrutura repetição -->
                 <!-- COMEÇO DO LAÇO -->
+                <?php do{?>
                     <tr>
                         <td class="hidden">
-                            <!-- ID -->
+                            <?php echo $row['id'];?>
                         </td>
                         <td>
                             <!-- RÓTULO -->
+                            <?php echo $row['rotulo'];?>
                             <span class="visible-xs"></span>
                             <span class="hidden-xs"></span>
                         </td>
                         <td>
                             <!-- INFORMAÇÃO -->
+                            <?php
+                            if( $row['destaque']== 'Sim'){
+                                echo '<span class="glypicon glypicon-star text-danger" aria-hidden="true"></span>';
+                            }else{
+                                echo '<span class="glypicon glypicon-star text-danger" aria-hidden="true"></span>';
+                            }
+                            echo '&nbsp';
+                            echo $row['descricao'];
+                            ?>
                         </td>
                         <td>
                             <!-- RESUMO -->
+                            <?php echo $row['resumo'];?>
                         </td>
                         <td>
                            <!-- VALOR -->
+                           <?php echo number_format($row['valor'],2,',','.');?>
                         </td>
                         <td>
-                            <img src="../images/<!-- IMAGEM -->" width="100px">
+                            <img src="../../images/<?php echo $row['imagem']?>" width="100px">
                         </td>
                         <td>
                             <a
-                                href="produtos_atualiza.php?id=<!-- ID -->" 
+                                href="produtos_atualiza.php?id=<?php echo $row['id']?>" 
                                 role="button" 
                                 class="btn btn-warning btn-block btn-xs"
                             >
@@ -65,12 +79,16 @@
                             </a>
                                 <!-- não mostrar o botão excluir se o produto estiver em destaque -->
                                 <!-- BOTÃO EXCLUIR -->
+                                <?php  
+                                    $regra = $conn->query("select destaque from vw_produtos where id =".$row['id']);
+                                    $regraRow = $regra->fetch_assoc();
+                                ?>
 
                             <button 
-                                data-nome="<!-- DESCRIÇÃO -->"
-                                data-id="<!-- ID -->"
+                                data-nome="<?php echo $row['descricao'];?>"
+                                data-id="<?php echo $row['id'];?>"
                                 class="delete btn btn-xs btn-block btn-danger
-                                <!-- DESTAQUE -->
+                                <?php echo $regraRow['destaque']=='Sim'?'hidden':''?>
                                 "     
                             >
                                 <span class="glyphicon glyphicon-trash"></span>
@@ -79,6 +97,7 @@
                         </td>
                     </tr>    
                 <!-- FIM DO LAÇO -->  
+                <?php } while($row = $lista->fetch_assoc());?>
             </tbody><!-- final corpo da tabela -->
         </table>
     </main>
@@ -110,7 +129,7 @@
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $('.delete').on('click',function(){
         var nome = $(this).data('nome'); //busca o nome com a descrição (data-nome)

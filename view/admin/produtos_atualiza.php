@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/estilo.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/estilo.css">
     <title>Produto - Insere</title>
 </head>
 <body>
@@ -87,7 +87,7 @@
                         </div>   
 
                         <label for="imagem_atual">Imagem Atual:</label> 
-                        <img src="../images/<?php echo $row['imagem']; ?>" alt="" srcset="">
+                        <img src="../../images/<?php echo $row['imagem']; ?>" alt="" srcset="">
                         <input type="hidden" name="imagem_atual" id="imagem_atual" value="<?php echo $row['imagem']; ?>" >
 
                         <label for="imagem">Imagem Nova:</label>    

@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a href="index.php" class="navbar-brand">
-                <img src="../images/logo-chuleta.png" alt="">
+                <img src="../../images/logo-chuleta.png" alt="">
             </a>
         </div>
         <!-- Fecha Agrupamento para exibição Mobile -->
@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="logout.php">
+                    <a href="../../controller/Controller_logout.php">
                         <span class="glyphicon glyphicon-log-out"></span>
                     </a>
                 </li>
