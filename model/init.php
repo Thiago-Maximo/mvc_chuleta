@@ -7,6 +7,6 @@
     define('BD_SERVIDOR','localhost');
     define('BD_USUARIO','root');
     define('BD_SENHA','');
-    define('BD_BANCO','livraria');
+    define('BD_BANCO','tincphpdb01');
 
 ?>

@@ -1,6 +1,6 @@
 <?php
     //tenho que iniciar uma sessão aqui na conexão já que estou trabalhando com sessões
-    session_start();
+    //session_start();
 
 //classe de conexão com o banco de dados orientada a objetos
 

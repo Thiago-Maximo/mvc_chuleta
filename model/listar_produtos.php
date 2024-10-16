@@ -1,27 +1,29 @@
 <?php
-    require_once 'init.php';
-
-    class Lista{
-        protected $Mysqli;
-
-        public function __construct(){
-            $this->conexao();
-        }
-
-        private function conexao(){
-            $this->mysqli = new mysqli(BD_SERVIDOR, BD_USUARIO , BD_SENHA, BD_BANCO);
-        }
-
-        public function getLista(){
-            $result = $this->Mysqli->query("SELECT * FROM produtos");
-            while($row = $result->fetch_array(MYSQLI_ASSOC)){
-                $array[]=$row;
-            }
-            return $array;
-        }
-
-        public function pesquisaLista($id){
-            $result = $this->Mysqli->query("SELECT * FROM produtos WHERE id='$id'");
-            return $result->fetch_array(MYSQLI_ASSOC);
+// model/Lista.php
+ 
+class Lista {
+    private $conexao;
+    private $resultado;
+ 
+    public function __construct() {
+        $this->conexao = new mysqli('localhost', 'root', '', 'tincphpdb01');
+        if ($this->conexao->connect_error) {
+            die("Erro de conexão: " . $this->conexao->connect_error);
         }
     }
+ 
+    public function listarProdutos() {
+        $sql = "SELECT * FROM vw_produtos";
+        $this->resultado = $this->conexao->query($sql);
+        return $this->resultado;
+    }
+ 
+    public function getNumLinhas() {
+        return $this->resultado ? $this->resultado->num_rows : 0;
+    }
+ 
+    public function fetchAssoc() {
+        return $this->resultado->fetch_assoc();
+    }
+}
+?>
