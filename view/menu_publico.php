@@ -1,5 +1,11 @@
 <!-- CONECTAR NO BANCO E SELECIONAR AS INFORMAÇÕES -->
+<?php
+require_once('../controller/Controller_tipos_lista.php');
 
+$controller = new TipoController();
+$resultado = $controller->obterTipos();
+$rows_tipos = $controller->proximoTipo();
+?>
     <!-- BOOTSTRAP -->
     <!-- abre a barra de navegação -->  
      
@@ -36,6 +42,10 @@
                         </a>
                         <ul class="dropdown-menu">
                             <!-- LAÇO DE REPETIÇÃO PARA APARECER OS TIPOS -->
+                            <?php 
+                            foreach($rows_tipos as $row){ ?> 
+                                <li><a href="produtos_por_tipo.php?id_tipo=<?php echo $row[0].'&rotulo='.$row[2] ?>"> <?php echo $row[2] ?></a></li>
+                            <?php }?>
                         </ul>
                     </li>
                     <!-- Fim do dropdown -->
