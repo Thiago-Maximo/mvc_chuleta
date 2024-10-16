@@ -1,7 +1,7 @@
 <?php
 
  
-require_once('../controller/Controller_listar.php');
+require_once('../controller/Controller_produtos_geral.php');
  
 $controller = new ProdutoController();
 $resultado = $controller->obterProdutos();

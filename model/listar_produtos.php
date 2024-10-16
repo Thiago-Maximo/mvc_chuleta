@@ -1,5 +1,5 @@
 <?php
-// model/Lista.php
+
  
 class Lista {
     private $conexao;
