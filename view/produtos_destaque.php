@@ -17,7 +17,7 @@ if ($num_linhas == 0) {
 // Mostrar se a consulta retornou produtos
 if ($num_linhas > 0) {
 ?>
-    <h2 class="breadcrumb alert-success"> Produtos </h2>
+    <h2 class="breadcrumb alert-success"> Destaque </h2>
     <div class="row">
     <?php
     while ($row_produtos = $controller->proximoProduto()) {

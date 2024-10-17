@@ -12,7 +12,7 @@
         }
 
         public function ListarProdutos(){
-            $sql = "SELECT * FROM produtos WHERE destaque = 'Sim'";
+            $sql = "SELECT * FROM vw_produtos WHERE destaque = 'Sim'";
             $this -> resultado = $this -> conexao -> query($sql);
             return $this-> resultado;
         }

@@ -11,14 +11,28 @@ require_once('../model/produtos_porTipo.php');
 
         public function obterProdutosPorTipo(){
             return $this->lista->ListarProduto();
+
         }
 
         public function contarProdutoTipo() {
+            
             return $this->lista->getNumLinhas();
+
         }
     
         public function proximoProdutoTipo() {
             return $this->lista->fetchAll();
+
+        }
+
+        public function proximoProdutoTipoFetchAssoc(){
+            return $this->lista->fetchAssoc();
+
+        }
+
+        public function InnerJoin(){
+            return $this->lista->InnerJoin();
+
         }
     }
 ?>

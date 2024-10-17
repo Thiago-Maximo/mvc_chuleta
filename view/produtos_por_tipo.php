@@ -1,13 +1,16 @@
 <?php 
 
 require_once('../controller/Controller_produtos_por_tipo.php');
+
 $controller = new ProdutoPorTipo();
-$resultado = $controller->obterProdutosPorTipo();
-//  $idTipo = $_GET['id_tipo'];
-//  $rotulo = $_GET['rotulo'];
-// $listaPorTipo = $conn->query('select * from vw_produtos where tipo_id ='. $idTipo);
- $rowPorTipo = $controller->proximoProdutoTipo();
-$numLinhas = $controller->contarProdutoTipo();
+//$resultado = $controller->obterProdutosPorTipo();
+ $idTipo = $_GET['id_tipo'];
+ $rotulo = $_GET['rotulo'];
+
+// $rowPorTipo = $controller->obterProdutosPorTipo( $idTipo);
+// $numLinhas = $controller->contarProdutoTipo( $idTipo);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +75,7 @@ $numLinhas = $controller->contarProdutoTipo();
                 </div>
                 
             </div>
-        <?php }while($rowPorTipo = $listaPorTipo->fetch_assoc()); ?>
+        <?php }while ($produto = $rowPorTipo->fetch_assoc()); ?>
     </div>
 
 <?php } ?>
