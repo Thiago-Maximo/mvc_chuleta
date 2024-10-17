@@ -4,13 +4,14 @@ require_once('../controller/Controller_produtos_por_tipo.php');
 
 $controller = new ProdutoPorTipo();
 //$resultado = $controller->obterProdutosPorTipo();
- $idTipo = $_GET['id_tipo'];
- $rotulo = $_GET['rotulo'];
+$idTipo = $_GET['id_tipo'];
+$rotulo = $_GET['rotulo'];
 
-// $rowPorTipo = $controller->obterProdutosPorTipo( $idTipo);
-// $numLinhas = $controller->contarProdutoTipo( $idTipo);
+$listaPorTipo = $controller->obterProdutosPorTipo();
+$rowPorTipo = $listaPorTipo->fetch_assoc();
+$numLinhas = $controller->contarProdutoTipo();
 
-
+ var_dump($listaPorTipo);
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +76,7 @@ $controller = new ProdutoPorTipo();
                 </div>
                 
             </div>
-        <?php }while ($produto = $rowPorTipo->fetch_assoc()); ?>
+        <?php }while ($listaPorTipo->fetch_assoc()); ?>
     </div>
 
 <?php } ?>

@@ -11,13 +11,15 @@
         }
 
         public function ListarProduto(){
-            $sql = 'SELECT * FROM vw_produtos ';
+            $idTipo = $_GET['id_tipo'];
+           
+            $sql = "SELECT * FROM vw_produtos WHERE tipo_id = '$idTipo'";
             $this->resultado = $this->conexao->query($sql);
             return $this->resultado;
         }
 
         public function getNumLinhas() {
-            return $this->resultado->num_rows;
+            return $this->resultado ? $this->resultado->num_rows : 0;
         }
      
         public function fetchAll() {
