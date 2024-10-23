@@ -1,8 +1,7 @@
 <?php
 
     class Login{
-        private $login;
-        private $senha;
+        
         private $resultado;
         private $conexao;
 
@@ -13,11 +12,25 @@
             }
         }
 
-        public function realizarLogin(){
+        public function realizarLogin($login,$senha){
+            public $login = $_GET['Login'];
+            public $senha = md5($_POST['senha']);
+
             $sql = "SELECT * FROM usuarios WHERE login = '$login' AND senha = '$senha'";
             $this->resultado = $this->conexao->query($sql);
             return $this->resultado;
         }
 
-        public function 
+        public function NumLinhas(){
+            return $this->resultado ? $this->resultado->num_rows : 0;
+        }
+
+        public function fetchAll(){
+            return $this-> resultado->fetch_all();
+        }
+
+        public function fetchAssoc(){
+            return $this->resultado->fetch_assoc();
+        }
     }
+?>
