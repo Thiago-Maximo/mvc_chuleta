@@ -11,7 +11,7 @@ $listaPorTipo = $controller->obterProdutosPorTipo();
 $rowPorTipo = $listaPorTipo->fetch_assoc();
 $numLinhas = $controller->contarProdutoTipo();
 
- var_dump($listaPorTipo);
+//  var_dump($listaPorTipo);
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +47,7 @@ $numLinhas = $controller->contarProdutoTipo();
         <strong><?php echo $rotulo; ?></strong>
     </h2>
     <div class="row">
-        <?php do{ ?>
+    <?php while ($rowPorTipo = $listaPorTipo->fetch_assoc()){; ?>
             <div class="col-sm-6 col-md-4 ">
                 <div class="thumbnail ">
                    <a href="produto_detalhes.php?id=<?php echo $rowPorTipo['id'] ?>">
@@ -76,7 +76,7 @@ $numLinhas = $controller->contarProdutoTipo();
                 </div>
                 
             </div>
-        <?php }while ($listaPorTipo->fetch_assoc()); ?>
+        <?php }?>
     </div>
 
 <?php } ?>

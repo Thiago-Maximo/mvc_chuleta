@@ -33,5 +33,7 @@ require_once('../model/produtos_porTipo.php');
         public function ListarProduto(){
             return $this->lista->InnerJoin();
         }
+
+        
     }
 ?>
