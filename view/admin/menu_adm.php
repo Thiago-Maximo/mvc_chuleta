@@ -1,3 +1,12 @@
+<?php 
+   include "../../controller/Controller_acesso_com.php";
+
+    require_once '../controller/Controller_login.php';
+    $conexao = conectar(); // função para conectar ao banco de dados
+    $loginController = new LoginController();
+    $loginController->autenticar();
+?>
+
 
 <nav class="nav navbar-inverse">
     <div class="container-fluid">

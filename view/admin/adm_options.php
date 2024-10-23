@@ -1,3 +1,12 @@
+<?php 
+   include "../../controller/Controller_acesso_com.php";
+
+    require_once '../controller/Controller_login.php';
+    $conexao = conectar(); // função para conectar ao banco de dados
+    $loginController = new LoginController();
+    $loginController->autenticar();
+?>
+
 <main class="container">
 <h1 class="breadcrumb">Área Administrativa</h1>
 <div class="row"><!-- manter os elementos na linha -->
