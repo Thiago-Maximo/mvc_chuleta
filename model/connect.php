@@ -1,21 +1,16 @@
 <?php
-    //tenho que iniciar uma sessão aqui na conexão já que estou trabalhando com sessões
-    //session_start();
+function conectar() {
+    $host = 'localhost';
+    $usuario = 'root';
+    $senha = '';
+    $banco = 'tincphpdb01';
 
-//classe de conexão com o banco de dados orientada a objetos
+    $conexao = new mysqli($host, $usuario, $senha, $banco);
 
-$dsn= 'mysql:host=localhost;dbname=tincphpdb01';
-$user='root';
-$pass='';
+    if ($conexao->connect_error) {
+        die("Falha na conexão: " . $conexao->connect_error);
+    }
 
-global $pdo;
-//Tratamento de erro na conexão com o banco de dados
-try {
-    $pdo = new PDO($dsn,$user,$pass);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-} catch (PDOException $erro) {
-    echo "Erro:".$erro->getMessage();
-    exit;
+    return $conexao;
 }
 ?>

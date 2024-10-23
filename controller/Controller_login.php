@@ -1,29 +1,32 @@
 <?php
+require_once __DIR__ . '/../model/login.php'; // Inclui a classe Usuario
 
-require_once '../model/login.php';
 class LoginController {
-    private $usuario;
+    private $conn;
 
-    public function __construct() {
-        $this->usuario = new Usuario();
+    public function __construct(mysqli $conn) {
+        $this->conn = $conn;
     }
- 
+
     public function autenticar($login, $senha) {
-        $usuario = $this->usuario->autenticar($login, $senha);
- 
+        $usuario = new Usuario($this->conn);
+        $usuario = $usuario->autenticar($login, $senha);
+
         if ($usuario) {
+            // Iniciar sessão
+            session_name('chulettaaa');
+            session_start();
+
+            // Definir variáveis de sessão
             $_SESSION['login_usuario'] = $login;
             $_SESSION['nivel_usuario'] = $usuario['nivel'];
             $_SESSION['nome_da_sessao'] = session_name();
- 
-            if ($usuario['nivel'] == 'sup') {
-                header('Location: ../view/admin/index.php');
-            } else {
-                header('Location: ../view/cliente/index.php?cliente=' . $login);
-            }
-        } else {
-            header('Location: invasor.php');
+
+            return $usuario['nivel'];
         }
+
+        return false;
     }
 }
-?>
+
+

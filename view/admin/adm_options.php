@@ -1,10 +1,5 @@
 <?php 
-   include "../../controller/Controller_acesso_com.php";
-
-    require_once '../controller/Controller_login.php';
-    $conexao = conectar(); // função para conectar ao banco de dados
-    $loginController = new LoginController();
-    $loginController->autenticar();
+ 
 ?>
 
 <main class="container">

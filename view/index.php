@@ -1,8 +1,8 @@
 <?php 
-require_once '../controller/Controller_login.php';
-$conexao = conectar(); // função para conectar ao banco de dados
-$loginController = new LoginController($conn);
-$loginController->autenticar();
+// require_once '../controller/Controller_login.php';
+// $conexao = conectar(); // função para conectar ao banco de dados
+// $loginController = new LoginController($conn);
+// $loginController->autenticar();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
