@@ -10,6 +10,7 @@
             }
         }
 
+        //Lista os produtos do banco de dados
         public function ListarProduto(){
             $idTipo = $_GET['id_tipo'];
            
@@ -18,23 +19,11 @@
             return $this->resultado;
         }
 
+        //Conta o numero de linhas que retornou
         public function getNumLinhas() {
             return $this->resultado ? $this->resultado->num_rows : 0;
         }
      
-        public function fetchAll() {
-            return $this->resultado->fetch_all();
-        }
-
-        public function fetchAssoc(){
-            return $this->resultado->fetch_assoc();
-        }
-
-        public function InnerJoin(){
-            $idTipo = $_GET['id_tipo'];
-            $sql = "SELECT * FROM vw_produtos INNER JOIN tipos ON vw_produtos.tipo_id = '$idTipo'";
-            $this->resultado = $this->conexao->query($sql);
-            return $this->resultado;
-        }
+       
     }
 ?>

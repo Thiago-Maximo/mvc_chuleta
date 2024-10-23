@@ -9,29 +9,17 @@ require_once('../model/produtos_porTipo.php');
             $this -> lista = new ProdutoTipo();
         }
 
+        //recebendo a função do model
         public function obterProdutosPorTipo(){
             return $this->lista->ListarProduto();
 
         }
 
+        //recebendo a função do model
         public function contarProdutoTipo() {
             
             return $this->lista->getNumLinhas();
 
-        }
-    
-        public function proximoProdutoTipo() {
-            return $this->lista->fetchAll();
-
-        }
-
-        public function proximoProdutoTipoFetchAssoc(){
-            return $this->lista->fetchAssoc();
-
-        }
-
-        public function ListarProduto(){
-            return $this->lista->InnerJoin();
         }
 
         
