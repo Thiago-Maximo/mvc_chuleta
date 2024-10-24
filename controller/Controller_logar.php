@@ -1,28 +1,30 @@
 <?php
-require_once '../model/connect.php';
-require_once 'Controller_login.php';
+// Inicia a sessão
+session_start();
 
-$conexao = conectar();
-$loginController = new LoginController($conexao);
+// Verificação dos campos do formulário
+if (!empty($_POST['login']) && !empty($_POST['senha'])) {
+    require '../model/connectPDO.php';
+    require 'Controller_login.php';
 
-if (isset($_POST['Login']) && isset($_POST['Senha'])) {
-    $login = $_POST['Login'];
-    $senha = $_POST['Senha'];
+    $usuario = new LoginController();
+    $login = $_POST['login'];
+    $senha = $_POST['senha'];
 
-    // Verificar autenticação
-    $nivel = $loginController->autenticar($login, $senha);
-
-    if ($nivel) {
-        // Redirecionar para página administrativa
-        header('Location: ../view/admin/index.php');
-        die();
+    // Verificando se o login é bem-sucedido
+    if ($usuario->login($login, $senha)) {
+        if ($_SESSION['nivel'] === 'com') {
+            header("Location: ../view/cliente/index.php");
+        } elseif ($_SESSION['nivel'] === 'sup') {
+            header("Location: ../view/admin/index.php");
+        }
     } else {
-        // Redirecionar para página de erro
-        header('Location: invasor.php');
-        die();
+        // Exibe mensagem de erro ou redireciona para a página de login
+        header("Location: ../view/admin/login.php?erro=1");
     }
 } else {
-    echo "Erro: Login ou senha não enviados.";
+    // Redireciona para a página de login se os campos estiverem vazios
+    header("Location: ../view/admin/login.php?erro=2");
 }
-
+exit;
 ?>

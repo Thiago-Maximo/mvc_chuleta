@@ -1,3 +1,25 @@
+<?php
+include("../../model/connectPDO.php");
+require("../../controller/Controller_login.php");
+
+$usuario = new LoginController();
+
+// Verifica se o formulário foi submetido
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Captura os dados do formulário
+    $login = $_POST['Login'] ?? '';
+    $senha = $_POST['Senha'] ?? '';
+
+    // Verifica se o login é bem-sucedido
+    if ($usuario->login($login, $senha)) {
+        // header("Location: ../index.php");
+        print_r($usuario);
+        exit; // Interrompe a execução para evitar redirecionamentos
+    } else {
+        echo "Login ou senha inválidos!";
+    }
+}
+?>
 
 
 <!DOCTYPE html>
@@ -34,7 +56,7 @@
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-user text-info" aria-hidden="true"></span>
                                         </span>
-                                        <input type="text" name="Login" id="login" class="form-control" autofocus required autocomplete="off" placeholder="Digite seu login.">
+                                        <input type="text" name="Login" id="ogin" class="form-control" autofocus required autocomplete="off" placeholder="Digite seu login.">
                                     </p>
                                     <label for="senha">Senha:</label>
                                     <p class="input-group">
