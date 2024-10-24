@@ -1,26 +1,7 @@
 <?php
-include("../../model/connectPDO.php");
-require("../../controller/Controller_login.php");
-
-$usuario = new LoginController();
-
-// Verifica se o formulário foi submetido
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Captura os dados do formulário
-    $login = $_POST['Login'] ?? '';
-    $senha = $_POST['Senha'] ?? '';
-
-    // Verifica se o login é bem-sucedido
-    if ($usuario->login($login, $senha)) {
-        // header("Location: ../index.php");
-        print_r($usuario);
-        exit; // Interrompe a execução para evitar redirecionamentos
-    } else {
-        echo "Login ou senha inválidos!";
-    }
-}
+session_name('chulettaaa');
+session_start();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -31,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/2495680ceb.js" crossorigin="anonymous"></script>
-    <!-- Link para CSS específico -->
     <link rel="stylesheet" href="../../css/estilo.css" type="text/css">
     
     <title>Chuleta Quente - Login</title>
@@ -50,20 +30,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </p>
                             <br>
                             <div class="alert alert-info" role="alert">
-                                <form action="../../controller/Controller_logar.php" name="form_login" id="form_login" method="POST" enctype="multipart/form-data">
+                                <form action="../../controller/Controller_logar.php" name="form_login" id="form_login" method="POST">
                                     <label for="login_usuario">Login:</label>
                                     <p class="input-group">
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-user text-info" aria-hidden="true"></span>
                                         </span>
-                                        <input type="text" name="Login" id="ogin" class="form-control" autofocus required autocomplete="off" placeholder="Digite seu login.">
+                                        <input type="text" name="login" id="login" class="form-control" autofocus required autocomplete="off" placeholder="Digite seu login.">
                                     </p>
                                     <label for="senha">Senha:</label>
                                     <p class="input-group">
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-qrcode text-info" aria-hidden="true"></span>
                                         </span>
-                                        <input type="password" name="Senha" id="senha" class="form-control" required autocomplete="off" placeholder="Digite sua senha.">
+                                        <input type="password" name="senha" id="senha" class="form-control" required autocomplete="off" placeholder="Digite sua senha.">
                                     </p>
                                     <p class="text-right">
                                         <input type="submit" value="Entrar" class="btn btn-primary">
@@ -72,9 +52,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <p class="text-center">
                                     <small>
                                         <br>
-                                        Caso não faça uma escolha em 30 segundos será redirecionado automaticamente para página inicial.
+                                        Caso não faça uma escolha em 30 segundos será redirecionado automaticamente para a página inicial.
                                     </small>
                                 </p>
+                                <?php if (isset($_GET['erro'])): ?>
+                                    <div class="alert alert-danger text-center">
+                                        <?php 
+                                        if ($_GET['erro'] == 1) {
+                                            echo "Login ou senha inválidos!";
+                                        } elseif ($_GET['erro'] == 2) {
+                                            echo "Por favor, preencha todos os campos.";
+                                        }
+                                        ?>
+                                    </div>
+                                <?php endif; ?>
                             </div><!-- fecha alert -->
                         </div><!-- fecha thumbnail -->
                     </div><!-- fecha dimensionamento -->
@@ -83,8 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </section>
     </main>
 
-
-    <!-- Link arquivos Bootstrap js -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
 </body>
