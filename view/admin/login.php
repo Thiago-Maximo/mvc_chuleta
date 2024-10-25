@@ -1,11 +1,17 @@
 <?php
 session_name('chulettaaa');
 session_start();
+require_once __DIR__ . '/../../model/connectPDO.php'; // Inclui a conexão
+require_once __DIR__ . '/../../controller/Controller_login.php'; // Inclua o controlador
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $loginController = new LoginController($pdo); // Passando a conexão PDO
+    $loginController->verificarLogin(); // Chamada do método que verifica o login
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="refresh" content="30;URL=../index.php">
@@ -13,10 +19,8 @@ session_start();
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <script src="https://kit.fontawesome.com/2495680ceb.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../../css/estilo.css" type="text/css">
-    
     <title>Chuleta Quente - Login</title>
 </head>
-
 <body>
     <main class="container">
         <section>
@@ -30,7 +34,7 @@ session_start();
                             </p>
                             <br>
                             <div class="alert alert-info" role="alert">
-                                <form action="../../controller/Controller_logar.php" name="form_login" id="form_login" method="POST">
+                                <form action="" method="POST"> <!-- Alterado para vazio -->
                                     <label for="login_usuario">Login:</label>
                                     <p class="input-group">
                                         <span class="input-group-addon">
@@ -77,5 +81,4 @@ session_start();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
 </body>
-
 </html>
