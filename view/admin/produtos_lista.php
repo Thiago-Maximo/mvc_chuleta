@@ -1,7 +1,17 @@
 <!-- CONECTAR NO BANCO E SELECIONAR AS INFORMAÇÕES -->
-<?php require '../../model/connect.php';
-    require '../../admin/Controller_produtos_lista';
+<?php
+require_once("../../model/connectPDO.php"); 
+require_once("../../controller/Controller_produtos_lista.php");
+
+// Cria a instância do controlador, passando a conexão PDO
+$controller = new ListarProdutos_admin($pdo);
+
+// Obtém a lista de produtos
+$lista = $controller->obterProdutos();
+$row = $controller->proximoProduto();
+$rows = $controller->contarProdutos();
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -11,11 +21,11 @@
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/estilo.css">
 </head>
-<body class=""> 
+<body> 
     <?php include 'menu_adm.php'; ?>
     <main class="container">
         <h2 class="breadcrumb alert-danger">Lista de Produtos</h2>
-        <table class="table table-hover table-condensed tb-opacidade bg-warning"> 
+        <table class="table table-hover table-condensed tb-opacidade bg-warning">
             <thead>
                 <th class="hidden">ID</th>
                 <th>TIPO</th>
@@ -23,125 +33,80 @@
                 <th>RESUMO</th>
                 <th>VALOR</th>
                 <th>IMAGEM</th>
-                <th>
-                    <a href="produtos_insere.php" target="_self" class="btn btn-block btn-primary btn-xs" role="button">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        <span class="hidden-xs">ADICIONAR</span>
-                    </a>
-                </th>
+                <th>AÇÃO</th>
             </thead>
-            
-            <tbody> <!-- início corpo da tabela -->
-           	        <!-- início estrutura repetição -->
-                <!-- COMEÇO DO LAÇO -->
-                <?php do{?>
+            <tbody>
+                <?php do { ?>
                     <tr>
-                        <td class="hidden">
-                            <?php echo $row['id'];?>
-                        </td>
+                        <td class="hidden"><?php echo $row['id']; ?></td>
+                        <td><?php echo $row['rotulo']; ?></td>
                         <td>
-                            <!-- RÓTULO -->
-                            <?php echo $row['rotulo'];?>
-                            <span class="visible-xs"></span>
-                            <span class="hidden-xs"></span>
-                        </td>
-                        <td>
-                            <!-- INFORMAÇÃO -->
-                            <?php
-                            if( $row['destaque']== 'Sim'){
-                                echo '<span class="glypicon glypicon-star text-danger" aria-hidden="true"></span>';
-                            }else{
-                                echo '<span class="glypicon glypicon-star text-danger" aria-hidden="true"></span>';
-                            }
-                            echo '&nbsp';
-                            echo $row['descricao'];
+                            <?php 
+                            echo $row['destaque'] === 'Sim' 
+                                ? '<span class="glyphicon glyphicon-star text-danger" aria-hidden="true"></span>' 
+                                : '<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>';
+                            echo '&nbsp;' . $row['descricao']; 
                             ?>
                         </td>
+                        <td><?php echo $row['resumo']; ?></td>
+                        <td><?php echo number_format($row['valor'], 2, ',', '.'); ?></td>
                         <td>
-                            <!-- RESUMO -->
-                            <?php echo $row['resumo'];?>
+                            <img src="../../images/<?php echo $row['imagem']; ?>" width="100px">
                         </td>
                         <td>
-                           <!-- VALOR -->
-                           <?php echo number_format($row['valor'],2,',','.');?>
-                        </td>
-                        <td>
-                            <img src="../../images/<?php echo $row['imagem']?>" width="100px">
-                        </td>
-                        <td>
-                            <a
-                                href="produtos_atualiza.php?id=<?php echo $row['id']?>" 
-                                role="button" 
-                                class="btn btn-warning btn-block btn-xs"
-                            >
-                                <span class="glyphicon glyphicon-refresh"></span>
-                                <span class="hidden-xs">ALTERAR</span>    
+                            <a href="produtos_atualiza.php?id=<?php echo $row['id']; ?>" 
+                               class="btn btn-warning btn-block btn-xs">
+                                <span class="glyphicon glyphicon-refresh"></span> ALTERAR
                             </a>
-                                <!-- não mostrar o botão excluir se o produto estiver em destaque -->
-                                <!-- BOTÃO EXCLUIR -->
-                                <?php  
-                                    $regra = $conn->query("select destaque from vw_produtos where id =".$row['id']);
-                                    $regraRow = $regra->fetch_assoc();
-                                ?>
+
+                            <?php 
+                            $regra = $pdo->query("SELECT destaque FROM vw_produtos WHERE id = " . $row['id']);
+                            $regraRow = $regra->fetch(PDO::FETCH_ASSOC);
+                            ?>
 
                             <button 
-                                data-nome="<?php echo $row['descricao'];?>"
-                                data-id="<?php echo $row['id'];?>"
-                                class="delete btn btn-xs btn-block btn-danger
-                                <?php echo $regraRow['destaque']=='Sim'?'hidden':''?>
-                                "     
-                            >
-                                <span class="glyphicon glyphicon-trash"></span>
-                                <span class="hidden-xs">EXCLUIR</span>
+                                data-nome="<?php echo $row['descricao']; ?>"
+                                data-id="<?php echo $row['id']; ?>"
+                                class="delete btn btn-danger btn-block btn-xs 
+                                <?php echo $regraRow['destaque'] === 'Sim' ? 'hidden' : ''; ?>">
+                                <span class="glyphicon glyphicon-trash"></span> EXCLUIR
                             </button>
                         </td>
-                    </tr>    
-                <!-- FIM DO LAÇO -->  
-                <?php } while($row = $lista->fetch_assoc());?>
-            </tbody><!-- final corpo da tabela -->
+                    </tr>
+                <?php } while ($row = $controller->proximoProduto()); ?>
+            </tbody>
         </table>
     </main>
-    <!-- inicio do modal para excluir... -->
+
     <div class="modal fade" id="modalEdit" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4>Vamos deletar?</h4>
-                    <button class="close" data-dismiss="modal" type="button">
-                        &times;
-
-                    </button>
+                    <button class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     Deseja mesmo excluir o item?
                     <h4><span class="nome text-danger"></span></h4>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" type="button" class="btn btn-danger delete-yes">
-                        Confirmar
-                    </a>
-                    <button class="btn btn-success" data-dismiss="modal">
-                        Cancelar
-                    </button>
+                    <a href="#" class="btn btn-danger delete-yes">Confirmar</a>
+                    <button class="btn btn-success" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script>
+        $('.delete').on('click', function () {
+            var nome = $(this).data('nome');
+            var id = $(this).data('id');
+            $('span.nome').text(nome);
+            $('a.delete-yes').attr('href', 'produtos_excluir.php?id=' + id);
+            $('#modalEdit').modal('show');
+        });
+    </script>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="../../js/bootstrap.min.js"></script>
-<script type="text/javascript">
-    $('.delete').on('click',function(){
-        var nome = $(this).data('nome'); //busca o nome com a descrição (data-nome)
-        var id = $(this).data('id'); // busca o id (data-id)
-        //console.log(id + ' - ' + nome); //exibe no console
-        $('span.nome').text(nome); // insere o nome do item na confirmação
-        $('a.delete-yes').attr('href','produtos_excluir.php?id='+id); //chama o arquivo php para excluir o produto
-        $('#modalEdit').modal('show'); // chamar o modal
-    });
-</script>
-
-<?php 
-
-?>
 </html>

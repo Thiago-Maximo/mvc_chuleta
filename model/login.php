@@ -8,16 +8,16 @@ class Usuario {
 
     public function login($login, $senha) {
         $sql = "SELECT id, nivel FROM usuarios WHERE login = :login AND senha = :senha";
-        $stmt = $this->pdo->prepare($sql);
+        $sql = $this->pdo->prepare($sql);
         
         // Bind de parâmetros
-        $stmt->bindValue(":login", $login);
-        $stmt->bindValue(":senha", md5($senha)); // MD5, mas considere usar bcrypt
+        $sql->bindValue(":login", $login);
+        $sql->bindValue(":senha", md5($senha)); // MD5, mas considere usar bcrypt
         
-        $stmt->execute();
+        $sql->execute();
 
-        if ($stmt->rowCount() > 0) {
-            $dado = $stmt->fetch();
+        if ($sql->rowCount() > 0) {
+            $dado = $sql->fetch();
             // Inicia a sessão se não existir
             if (session_status() == PHP_SESSION_NONE) {
                 session_name('chulettaaa');
