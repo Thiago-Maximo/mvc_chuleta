@@ -1,4 +1,5 @@
 <?php
+//fazendo o logout do usuario 
 session_name('chulettaaa');
 session_start();
 session_unset();

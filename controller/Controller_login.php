@@ -5,11 +5,11 @@ require_once __DIR__ . '/../model/connectPDO.php'; // Inclui a conexão com o ba
 class LoginController {
     private $usuario;
 
-    public function __construct($pdo) {
+    public function __construct($pdo) {//conexão com o banco de dados
         $this->usuario = new Usuario($pdo);
     }
 
-    public function verificarLogin() {
+    public function verificarLogin() {//fazendo a verificação de login
         if (!empty($_POST['login']) && !empty($_POST['senha'])) {
             $login = $_POST['login'];
             $senha = $_POST['senha'];

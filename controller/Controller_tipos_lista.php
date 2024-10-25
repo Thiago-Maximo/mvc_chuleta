@@ -6,19 +6,19 @@ require_once('../model/tipos_lista.php');
     class TipoController {
         private $lista;
     
-        public function __construct() {
+        public function __construct() {//instanciando um objeto da classe
             $this->lista = new ListaTipos();
         }
     
-        public function obterTipos() {
+        public function obterTipos() {//recebendo uma função da classe
             return $this->lista->ListarTipos();
         }
     
-        public function contarTipos() {
+        public function contarTipos() {//recebendo uma função da classe
             return $this->lista->getNumLinhas();
         }
     
-        public function proximoTipo() {
+        public function proximoTipo() {//recebendo uma função da classe
             return $this->lista->fetchAll();
         }
     }

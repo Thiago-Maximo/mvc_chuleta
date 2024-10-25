@@ -1,4 +1,5 @@
 <?php
+//fazendo a verificação e iniciando a sessao
 if (!class_exists('Sessao')) {
     class Sessao {
         public function __construct() {
