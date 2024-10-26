@@ -14,7 +14,7 @@ class InserirTipo {
         $sql->bindParam(':sigla', $sigla); // Bind dos parâmetros
         $sql->bindParam(':rotulo', $rotulo);
         
-        $sql->execute(); // Executa a query
+        $sql->execute(); // Executa o comando
         return $this->pdo->lastInsertId(); // Retorna o ID do tipo inserido
     }
 }
