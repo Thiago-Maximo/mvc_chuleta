@@ -10,11 +10,11 @@ class InserirTipo {
 
     public function inserirTipo($sigla, $rotulo) { // Função para inserir tipos
         $sql = "INSERT INTO tipos (sigla, rotulo) VALUES (:sigla, :rotulo)";
-        $stmt = $this->pdo->prepare($sql); // Preparação do comando SQL
-        $stmt->bindParam(':sigla', $sigla); // Bind dos parâmetros
-        $stmt->bindParam(':rotulo', $rotulo);
+        $sql = $this->pdo->prepare($sql); // Preparação do comando SQL
+        $sql->bindParam(':sigla', $sigla); // Bind dos parâmetros
+        $sql->bindParam(':rotulo', $rotulo);
         
-        $stmt->execute(); // Executa a query
+        $sql->execute(); // Executa a query
         return $this->pdo->lastInsertId(); // Retorna o ID do tipo inserido
     }
 }
