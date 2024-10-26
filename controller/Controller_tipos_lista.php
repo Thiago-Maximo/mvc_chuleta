@@ -1,7 +1,7 @@
 <?php
 
  
-require_once('../model/tipos_lista.php');
+require_once __DIR__ .'../../model/tipos_lista.php';
  
     class TipoController {
         private $lista;
