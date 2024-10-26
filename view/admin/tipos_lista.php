@@ -1,6 +1,6 @@
 <?php
     require_once __DIR__ . '/../../controller/Controller_tipos_lista.php';
-    require_once __DIR__ . '/../../model/tipos_lista.php';
+    require_once __DIR__ . '/../../model/connectPDO.php';
 
     // Criação do controller e obtenção dos tipos
     $controller = new TipoController();
