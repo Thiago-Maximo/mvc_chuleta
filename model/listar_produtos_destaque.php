@@ -14,17 +14,17 @@
             }
         }
 
-        public function ListarProdutos(){
+        public function ListarProdutos(){// função para listar todos os produtos
             $sql = "SELECT * FROM vw_produtos WHERE destaque = 'Sim'";
             $this -> resultado = $this -> conexao -> query($sql);
             return $this-> resultado;
         }
 
-        public function getNumLinhas(){
+        public function getNumLinhas(){// função para pegar todas as linhas do banco de dados
             return $this -> resultado ? $this -> resultado->num_rows : 0;
         }
 
-        public function fetchAssoc(){
+        public function fetchAssoc(){// função para passar por cada linha do banco
             return $this -> resultado->fetch_assoc();
         }
     }
