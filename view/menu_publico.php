@@ -9,7 +9,21 @@ $rows_tipos = $controller->proximoTipo();
     <!-- BOOTSTRAP -->
     <!-- abre a barra de navegação -->  
      
-    <nav class="navbar navbar-expanded-md navbar-fixed-top navbar-light navbar-inverse">
+    <style>
+        .navbar {
+            background-color: white !important;
+            opacity: 1;
+            z-index: 1030;
+        }
+        a{
+            color: black !important;
+        }
+    </style>
+
+
+
+   <nav class="navbar navbar-expand-md navbar-light bg-white fixed-top shadow">
+
         <div class="container-fluid">
             <!-- agrupamento Mobile -->
             <div class="navbar-header">
@@ -73,3 +87,4 @@ $rows_tipos = $controller->proximoTipo();
             </div>
         </div>
     </nav>
+    

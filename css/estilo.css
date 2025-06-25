@@ -7,10 +7,12 @@ body{
     padding-top: 40px;
 }
 .fundofixo{
-    background: url('../images/churrascaria.jpg') no-repeat fixed;
+    background: url('../images/Plano de Fundo de Hamburger.jpg') no-repeat fixed;
     -webkit-background-size: cover;
     background-size: cover;    
 }
 .fundo-branco{
     background-color: aliceblue;
 }
+
+

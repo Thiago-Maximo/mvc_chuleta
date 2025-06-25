@@ -2,23 +2,38 @@
 session_name('chulettaaa');
 session_start();
 
-require_once __DIR__ . '/../../model/connectPDO.php'; // Inclui a conexão
-require_once __DIR__ . '/../../model/login.php'; // Inclua o arquivo da classe Usuario
-require_once __DIR__ . '/../../controller/Controller_login.php'; // Inclui o controlador
+require_once __DIR__ . '/../../model/connectPDO.php';
+require_once __DIR__ . '/../../model/login.php';
+require_once __DIR__ . '/../../controller/Controller_login.php';
 
-$loginController = new LoginController($pdo); // Passando a conexão PDO
+$loginController = new LoginController($pdo);
 
-// Verifique se o usuário está logado, redirecione para o login se não estiver
 if (!isset($_SESSION['login_usuario'])) {
-    header("Location: ../admin/login.php"); // Redireciona para a página de login
+    header("Location: ../admin/login.php");
     exit;
 }
-
-// O restante do seu código HTML...
 ?>
-<h2>
-<strong> <?php echo $_GET['cliente']; ?></strong>, Bem vindo à sua área de cliente! 
-</h2>
-<a href="../admin/logout.php">
-    <span class="glyphicon glyphicon-log-out">sair</span>
-</a>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Área do Cliente</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+</head>
+<body class="fundofixo">
+    <div class="container">
+        <h2 class="breadcrumb alert-success">
+            <strong><?php echo $_SESSION['login_usuario']; ?></strong>, bem-vindo à sua área de cliente!
+        </h2>
+        <p>
+            Aqui você poderá ver seus pedidos, atualizar seus dados ou simplesmente sair.
+        </p>
+        <a href="../index.php" class="btn btn-danger">
+            <span class="glyphicon glyphicon-log-out"></span> Sair
+        </a>
+        <a href="area_cliente_pedidos.php" class="btn btn-info">Ver meus pedidos</a>
+
+    </div>
+</body>
+</html>
