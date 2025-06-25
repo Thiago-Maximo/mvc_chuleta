@@ -105,3 +105,13 @@ CREATE VIEW vw_produtos AS
 		JOIN tipos t
 	WHERE p.tipo_id=t.id;
 COMMIT;
+
+CREATE TABLE vendas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT NOT NULL,
+    produto_id INT NOT NULL,
+    quantidade INT NOT NULL,
+    data_venda DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (cliente_id) REFERENCES usuarios(id),
+    FOREIGN KEY (produto_id) REFERENCES produtos(id)
+);
