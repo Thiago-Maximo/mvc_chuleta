@@ -24,6 +24,9 @@ class LoginController {
                     case 'sup':
                         header("Location: ../admin/index.php");
                         break;
+                    case 'ate':
+                        header("Location: ../admin/atendente.php");
+                        break;
                     default:
                         header("Location: ../admin/login.php?erro=3"); // Nível desconhecido
                         break;
