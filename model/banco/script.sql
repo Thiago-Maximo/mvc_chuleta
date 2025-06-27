@@ -115,3 +115,12 @@ CREATE TABLE vendas (
     FOREIGN KEY (cliente_id) REFERENCES usuarios(id),
     FOREIGN KEY (produto_id) REFERENCES produtos(id)
 );
+
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `atualizar_usuario_apos_cliente_update` AFTER UPDATE ON `clientes` FOR EACH ROW BEGIN
+    UPDATE usuarios
+    SET
+        login = NEW.login,
+        senha = NEW.senha
+    WHERE login = OLD.login;
+END

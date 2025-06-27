@@ -33,7 +33,7 @@ if (!isset($_SESSION['login_usuario'])) {
             <span class="glyphicon glyphicon-log-out"></span> Sair
         </a>
         <a href="area_cliente_pedidos.php" class="btn btn-info">Ver meus pedidos</a>
-
+        <a href="Alterar-Dados.php" class="btn btn-warning">Alterar Meus Dados</a>
     </div>
 </body>
 </html>

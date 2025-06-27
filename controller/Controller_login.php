@@ -1,26 +1,22 @@
 <?php
-require_once __DIR__ . '/../model/login.php';
-require_once __DIR__ . '/../model/connectPDO.php';
+require_once __DIR__ . '/../model/login.php'; // Inclua o arquivo da classe Usuario
+require_once __DIR__ . '/../model/connectPDO.php'; // Inclui a conexão com o banco
 
 class LoginController {
     private $usuario;
 
-    public function __construct($pdo) {
+    public function __construct($pdo) {//conexão com o banco de dados
         $this->usuario = new Usuario($pdo);
     }
 
-    public function verificarLogin() {
+    public function verificarLogin() {//fazendo a verificação de login
         if (!empty($_POST['login']) && !empty($_POST['senha'])) {
-            $login = trim($_POST['login']);
+            $login = $_POST['login'];
             $senha = $_POST['senha'];
 
-            // Verificação adicional de formato
-            if (!preg_match('/^[a-zA-Z0-9_]+$/', $login)) {
-                header("Location: ../admin/login.php?erro=4"); // Login inválido
-                exit;
-            }
-
+            // Verificando se o login é bem-sucedido
             if ($this->usuario->login($login, $senha)) {
+                // Redireciona conforme o nível do usuário
                 switch ($_SESSION['nivel']) {
                     case 'com':
                         header("Location: ../cliente/index.php");
@@ -32,15 +28,15 @@ class LoginController {
                         header("Location: ../admin/atendente.php");
                         break;
                     default:
-                        header("Location: ../admin/login.php?erro=3");
+                        header("Location: ../admin/login.php?erro=3"); // Nível desconhecido
                         break;
                 }
                 exit; 
             } else {
-                header("Location: ../admin/login.php?erro=1");
+                header("Location: ../admin/login.php?erro=1"); // Login ou senha inválidos
             }
         } else {
-            header("Location: ../admin/login.php?erro=2");
+            header("Location: ../admin/login.php?erro=2"); // Campos vazios
         }
         exit;
     }
